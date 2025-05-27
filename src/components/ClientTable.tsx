@@ -20,6 +20,7 @@ import {
   useMediaQuery,
   useTheme,
   Typography,
+  DialogActions,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -34,6 +35,8 @@ const ClientTable: React.FC = () => {
   const [editingClient, setEditingClient] = useState<Client | null>(null);
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -45,9 +48,8 @@ const ClientTable: React.FC = () => {
   };
 
   const handleDelete = (id: number) => {
-    if (window.confirm('Вы уверены, что хотите удалить клиента?')) {
-      dispatch(deleteClient(id));
-    }
+    setDeleteId(id);
+    setDeleteDialogOpen(true);
   };
 
   const handleAdd = () => {
@@ -74,6 +76,14 @@ const ClientTable: React.FC = () => {
     }
     setDialogOpen(false);
     setEditingClient(null);
+  };
+
+  const confirmDelete = () => {
+    if (deleteId !== null) {
+      dispatch(deleteClient(deleteId));
+    }
+    setDeleteDialogOpen(false);
+    setDeleteId(null);
   };
 
   return (
@@ -173,6 +183,22 @@ const ClientTable: React.FC = () => {
             />
           )}
         </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={() => setDeleteDialogOpen(false)}
+      >
+        <DialogTitle>Удалить клиента?</DialogTitle>
+        <DialogContent>
+          <Typography>Вы уверены, что хотите удалить клиента?</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteDialogOpen(false)}>Отмена</Button>
+          <Button onClick={confirmDelete} color="error" variant="contained">
+            Удалить
+          </Button>
+        </DialogActions>
       </Dialog>
     </>
   );
