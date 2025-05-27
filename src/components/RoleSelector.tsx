@@ -104,7 +104,7 @@ const RoleSelector: React.FC = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setLoginOpen(false)}>Отмена</Button>
-          <Button variant="contained" onClick={handleLogin}>Войти</Button>
+          <Button type='submit' variant="contained" onClick={handleLogin}>Войти</Button>
         </DialogActions>
       </Dialog>
     </Box>
