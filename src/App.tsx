@@ -34,19 +34,10 @@ const AppContent: React.FC = () => {
           align="center"
           mb={isMobile ? 2 : 4}
         >
-          Минималистичная CRM-система
+          CRM-система
         </Typography>
         <RoleSelector />
         {role !== 'guest' && <ClientTable />}
-        <Box
-          mt={isMobile ? 3 : 6}
-          textAlign="center"
-          color="text.secondary"
-          fontSize={isMobile ? 11 : 12}
-          px={isMobile ? 1 : 0}
-        >
-          Роли: Гость — просмотр, Пользователь — добавление и редактирование, Админ — полный доступ.
-        </Box>
       </Paper>
     </Box>
   );
