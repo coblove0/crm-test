@@ -1,9 +1,15 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Client } from '../types';
+
+const initialState: Client[] = [
+  { id: 1, name: 'Иван Иванов', email: 'ivanov@mail.ru', phone: '+7 999 123-45-67' },
+  { id: 2, name: 'Мария Петрова', email: 'petrova@mail.ru', phone: '+7 912 222-33-44' },
+  { id: 3, name: 'John Doe', email: 'john.doe@example.com', phone: '+7 900 555-66-77' },
+];
 
 const clientsSlice = createSlice({
   name: 'clients',
-  initialState: [] as Client[],
+  initialState,
   reducers: {
     addClient(state, action: PayloadAction<Omit<Client, 'id'>>) {
       const maxId = state.reduce((max, c) => (c.id > max ? c.id : max), 0);

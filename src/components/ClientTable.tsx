@@ -79,7 +79,7 @@ const ClientTable: React.FC = () => {
   return (
     <>
       <Box mb={2} display="flex" justifyContent={isMobile ? 'center' : 'flex-end'}>
-        {(role === 'user' || role === 'admin') && (
+        {role === 'user' || role === 'admin' ? (
           <Button
             variant="contained"
             onClick={handleAdd}
@@ -88,7 +88,7 @@ const ClientTable: React.FC = () => {
           >
             Добавить клиента
           </Button>
-        )}
+        ) : null}
       </Box>
       <TableContainer component={Paper} sx={isMobile ? { boxShadow: 'none' } : {}}>
         <Table aria-label="table clients" size={isMobile ? 'small' : 'medium'}>
@@ -97,7 +97,7 @@ const ClientTable: React.FC = () => {
               <TableCell sx={isMobile ? { fontSize: 14, px: 1 } : {}}>Имя</TableCell>
               <TableCell sx={isMobile ? { fontSize: 14, px: 1 } : {}}>Email</TableCell>
               <TableCell sx={isMobile ? { fontSize: 14, px: 1 } : {}}>Телефон</TableCell>
-              {(role === 'user' || role === 'admin') && (
+              {role === 'admin' && (
                 <TableCell align="right" sx={isMobile ? { fontSize: 14, px: 1 } : {}}>
                   Действия
                 </TableCell>
@@ -108,7 +108,7 @@ const ClientTable: React.FC = () => {
             {clients.length === 0 && (
               <TableRow>
                 <TableCell
-                  colSpan={role === 'guest' ? 3 : 4}
+                  colSpan={role === 'admin' ? 4 : 3}
                   align="center"
                   sx={{ py: isMobile ? 2 : 5, fontSize: isMobile ? 14 : 16 }}
                 >
@@ -121,7 +121,7 @@ const ClientTable: React.FC = () => {
                 <TableCell sx={isMobile ? { fontSize: 14, px: 1 } : {}}>{client.name}</TableCell>
                 <TableCell sx={isMobile ? { fontSize: 14, px: 1 } : {}}>{client.email}</TableCell>
                 <TableCell sx={isMobile ? { fontSize: 14, px: 1 } : {}}>{client.phone}</TableCell>
-                {(role === 'user' || role === 'admin') && (
+                {role === 'admin' && (
                   <TableCell align="right" sx={isMobile ? { px: 1 } : {}}>
                     <Tooltip title="Редактировать">
                       <IconButton
@@ -132,17 +132,15 @@ const ClientTable: React.FC = () => {
                         <EditIcon fontSize={isMobile ? 'small' : 'medium'} />
                       </IconButton>
                     </Tooltip>
-                    {role === 'admin' && (
-                      <Tooltip title="Удалить">
-                        <IconButton
-                          onClick={() => handleDelete(client.id)}
-                          size={isMobile ? 'small' : 'medium'}
-                          color="error"
-                        >
-                          <DeleteIcon fontSize={isMobile ? 'small' : 'medium'} />
-                        </IconButton>
-                      </Tooltip>
-                    )}
+                    <Tooltip title="Удалить">
+                      <IconButton
+                        onClick={() => handleDelete(client.id)}
+                        size={isMobile ? 'small' : 'medium'}
+                        color="error"
+                      >
+                        <DeleteIcon fontSize={isMobile ? 'small' : 'medium'} />
+                      </IconButton>
+                    </Tooltip>
                   </TableCell>
                 )}
               </TableRow>

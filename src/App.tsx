@@ -1,13 +1,14 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import { Container, Typography, Box, useMediaQuery, useTheme, Paper } from '@mui/material';
 import RoleSelector from './components/RoleSelector';
 import ClientTable from './components/ClientTable';
-import store from './store';
+import store, { RootState } from './store';
 
 const AppContent: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const role = useSelector((state: RootState) => state.user.role);
 
   return (
     <Box
@@ -36,7 +37,7 @@ const AppContent: React.FC = () => {
           Минималистичная CRM-система
         </Typography>
         <RoleSelector />
-        <ClientTable />
+        {role !== 'guest' && <ClientTable />}
         <Box
           mt={isMobile ? 3 : 6}
           textAlign="center"
