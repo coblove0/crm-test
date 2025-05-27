@@ -83,29 +83,38 @@ const RoleSelector: React.FC = () => {
       )}
       <Dialog open={loginOpen} onClose={() => setLoginOpen(false)} maxWidth="xs" fullWidth>
         <DialogTitle>Вход</DialogTitle>
-        <DialogContent>
-          {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
-          <TextField
-            label="Логин"
-            value={login}
-            onChange={e => setLogin(e.target.value)}
-            fullWidth
-            margin="dense"
-            autoFocus
-          />
-          <TextField
-            label="Пароль"
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            fullWidth
-            margin="dense"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setLoginOpen(false)}>Отмена</Button>
-          <Button type='submit' variant="contained" onClick={handleLogin}>Войти</Button>
-        </DialogActions>
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            handleLogin();
+          }}
+        >
+          <DialogContent>
+            {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+            <TextField
+              label="Логин"
+              value={login}
+              onChange={e => setLogin(e.target.value)}
+              fullWidth
+              margin="dense"
+              autoFocus
+            />
+            <TextField
+              label="Пароль"
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              fullWidth
+              margin="dense"
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setLoginOpen(false)}>Отмена</Button>
+            <Button variant="contained" type="submit">
+              Войти
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </Box>
   );
