@@ -90,11 +90,20 @@ const ClientForm: React.FC<ClientFormProps> = ({ initialValues, onSubmit, onCanc
               gap={1}
               mt={2}
             >
-              <Button onClick={onCancel} disabled={isSubmitting} fullWidth={isMobile}>
-                Отмена
-              </Button>
-              <Button type="submit" variant="contained" disabled={isSubmitting} fullWidth={isMobile}>
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={isSubmitting}
+                fullWidth={isMobile}
+              >
                 Сохранить
+              </Button>
+              <Button
+                onClick={onCancel}
+                disabled={isSubmitting}
+                fullWidth={isMobile}
+              >
+                Отмена
               </Button>
             </Box>
           </Box>
